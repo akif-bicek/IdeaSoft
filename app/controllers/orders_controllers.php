@@ -53,20 +53,20 @@ class orders_controllers{
             foreach ($items as $item){
                 $itemParse = explode("-", $item);
                 $itemId = $itemParse[0];
-                $quanity = $itemParse[1] ?? 1;
+                $quantity = $itemParse[1] ?? 1;
                 $getItem = $db->read("select * from products where id = ?", $itemId)[0];
                 $stock = $getItem["stock"];
-                $stock = $stock - $quanity;
+                $stock = ($stock - $quantity);
                 if ($stock > 0){
                     $updateStock = $db->update("products", "stock", $getItem["id"], $stock);
                     if ($updateStock !== false){
                         $price = $getItem["price"];
-                        $total = ($price * $quanity);
+                        $total = ($price * $quantity);
                         $totalOrder += $total;
                         $orderItems[] =  array(
                             "status" => true,
                             "productId" => $getItem["id"],
-                            "quantity" => $quanity,
+                            "quantity" => $quantity,
                             "unitPrice" => $price,
                             "total" => $total,
                             "category" => $getItem["category"],

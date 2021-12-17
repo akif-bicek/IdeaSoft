@@ -51,7 +51,7 @@ class discount_helpers{
 
     public function category1Taken2AndMore(){
         foreach ($this->items as $item){
-            if ($this->categoryQuantity(2) > 0){
+            if ($this->categoryQuantity(1) >= 2){
                 $discountAmount = $this->percent($this->minPrice(), 20);
                 $this->totalDiscount += $discountAmount;
                 $subtotal = ($this->total - $this->totalDiscount);
