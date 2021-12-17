@@ -50,18 +50,16 @@ class discount_helpers{
     }
 
     public function category1Taken2AndMore(){
-        foreach ($this->items as $item){
-            if ($this->categoryQuantity(1) >= 2){
-                $discountAmount = $this->percent($this->minPrice(), 20);
-                $this->totalDiscount += $discountAmount;
-                $subtotal = ($this->total - $this->totalDiscount);
-                $message = "2 and more were taken of category 1";
-                return array(
-                    "discountReason" => $message,
-                    "discountAmount" => $discountAmount,
-                    "subtotal" => $subtotal
-                );
-            }
+        if ($this->categoryQuantity(1) >= 2){
+            $discountAmount = $this->percent($this->minPrice(), 20);
+            $this->totalDiscount += $discountAmount;
+            $subtotal = ($this->total - $this->totalDiscount);
+            $message = "2 and more were taken of category 1";
+            return array(
+                "discountReason" => $message,
+                "discountAmount" => $discountAmount,
+                "subtotal" => $subtotal
+            );
         }
     }
 
